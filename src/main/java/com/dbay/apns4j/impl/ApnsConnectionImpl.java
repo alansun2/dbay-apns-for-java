@@ -71,7 +71,14 @@ public class ApnsConnectionImpl implements IApnsConnection {
      */
     private boolean isFirstWrite = false;
 
+    /**
+     * 发送失败后重试次数；超过重试次数，会丢弃
+     */
     private int maxRetries;
+
+    /**
+     * notificationCachedQueue最多能存储的推送数量；当大于maxCacheLength时，会把notificationCachedQueue中第一个移除
+     */
     private int maxCacheLength;
 
     private int readTimeOut;
@@ -174,8 +181,7 @@ public class ApnsConnectionImpl implements IApnsConnection {
                 logger.error(String.format("%s Notification send failed. %s", connName, notification));
                 return;
             } else {
-                logger.info(String.format("%s Send success. count: %s, notificaion: %s", connName,
-                        notificaionSentCount.incrementAndGet(), notification));
+                logger.info(String.format("%s Send success. count: %s, notificaion: %s", connName, notificaionSentCount.incrementAndGet(), notification));
 
                 notificationCachedQueue.add(notification);
                 lastSuccessfulTime = System.currentTimeMillis();

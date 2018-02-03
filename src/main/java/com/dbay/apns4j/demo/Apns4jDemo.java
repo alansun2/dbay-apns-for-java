@@ -31,7 +31,12 @@ public class Apns4jDemo {
 
     public static void main(String[] args) {
         IApnsService service = getApnsService();
-
+        List<Feedback> feedbacks = service.getFeedbacks();
+        if (feedbacks != null && feedbacks.size() > 0) {
+            for (Feedback feedback : feedbacks) {
+                System.out.println(feedback.getDate() + " " + feedback.getToken());
+            }
+        }
         // send notification
         String token = "318dd0159d51922fdaeb6bc98efb88cd7b9ff054afbd57bcb808b7673dbfb584";
 
@@ -41,7 +46,7 @@ public class Apns4jDemo {
         payload.setBadge(1);
         // set sound null, the music won't be played
 //		payload.setSound(null);
-        payload.setSound("orderComing.caf");
+//        payload.setSound("orderComing.caf");
         payload.addParam("uid", 123456);
         payload.addParam("type", 12);
         service.sendNotification(token, payload);

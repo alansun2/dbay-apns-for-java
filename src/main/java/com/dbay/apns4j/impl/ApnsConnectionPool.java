@@ -41,7 +41,7 @@ public class ApnsConnectionPool implements Closeable {
 		
 		String host = HOST_PRODUCTION_ENV;
 		int port = PORT_PRODUCTION_ENV;
-		if (config.isDevEnv()) {
+		if (!config.isProEnv()) {
 			host = HOST_DEVELOPMENT_ENV;
 			port = PORT_DEVELOPMENT_ENV;
 		}
@@ -50,7 +50,7 @@ public class ApnsConnectionPool implements Closeable {
 		connQueue = new LinkedBlockingQueue<IApnsConnection>(poolSize);
 		
 		for (int i = 0; i < poolSize; i++) {
-			String connName = (config.isDevEnv() ? "dev-" : "pro-") + CONN_ID_SEQ++;
+			String connName = (config.isProEnv() ? "pro-" : "dev-") + CONN_ID_SEQ++;
 			IApnsConnection conn = new ApnsConnectionImpl(this.factory, host, port, config.getRetries(), 
 					config.getCacheLength(), config.getName(), connName, config.getIntervalTime(), config.getTimeout());
 			connQueue.add(conn);

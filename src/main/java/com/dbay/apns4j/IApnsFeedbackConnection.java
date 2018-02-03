@@ -15,15 +15,14 @@
  */
 package com.dbay.apns4j;
 
-import java.util.List;
-
 import com.dbay.apns4j.model.Feedback;
+
+import java.util.List;
 
 /**
  * @author RamosLi
- *
  */
 public interface IApnsFeedbackConnection {
-	
-	public List<Feedback> getFeedbacks();
+
+    public List<Feedback> getFeedbacks();
 }

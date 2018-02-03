@@ -15,14 +15,14 @@
  */
 package com.dbay.apns4j;
 
-import java.io.Closeable;
-
 import com.dbay.apns4j.model.Payload;
 import com.dbay.apns4j.model.PushNotification;
 
-public interface IApnsConnection extends Closeable {
-	
-	public void sendNotification(String token, Payload payload);
+import java.io.Closeable;
 
-	public void sendNotification(PushNotification notification);
+public interface IApnsConnection extends Closeable {
+
+    public void sendNotification(String token, Payload payload);
+
+    public void sendNotification(PushNotification notification);
 }
